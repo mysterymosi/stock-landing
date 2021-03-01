@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    env_file:
+      - .env.dev
+    ports: 
+      - "5400:5432"
+
+  backend:
+    container_name: stocktrade
+    image: raene/stocktrade
+    env_file:
+      - .env.dev
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    restart: always
+  
