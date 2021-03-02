@@ -1,21 +1,36 @@
-'use strict';
-
-const express = require('express');
-
-// Constants
-const PORT = process.env.PORT;
-const HOST = '0.0.0.0';
-
-// App
+const express = require("express");
 const app = express();
-app.get('/', (req, res) => {
-  res.send('Hello Wordd');
-});
+const envVar = process.env.NODE_ENV;
+const logger = require("morgan");
+const bodyParser = require("body-parser");
+const user = require("./routes/user");
+const handleErrors = require('./middlewares/handleErrors');
+const db = require('./database/models/index');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggeruser = YAML.load('./docs/swaggeruser.YAML');
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+app.disable("x-powered-by");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+if (envVar !== "production" || envVar !== "test") {
+  app.use(logger("dev"));
+}
 
-function handle(signal) {
-    console.log(`*^!@4=> Received event: ${signal}`)
- }
- process.on('SIGHUP', handle)
+db.sequelize.sync().then()
+app.use("/api/user", user);
+app.use('/user-api-docs', swaggerUi.serve, swaggerUi.setup(swaggeruser));
+
+console.log(process.env.NODE_ENV)
+//error middleware must get called last for stable performance
+function logErrors (err, req, res, next) {
+  console.error(err.stack)
+  next(err)
+}
+app.use(logErrors);
+app.use(handleErrors);
+app.listen(process.env.PORT, () =>
+  console.log(`Example app listening on port ${process.env.PORT}!`)
+);
+
+module.exports = app;
