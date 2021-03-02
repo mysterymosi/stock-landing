@@ -2,7 +2,7 @@ version: "3.9"
 services:
   db:
     container_name: pg_container
-    image: postgres
+    image: postgres:9.6
     restart: always
     volumes:
       - ./db:/var/lib/postgresql/data
@@ -13,9 +13,10 @@ services:
 
   backend:
     container_name: stocktrade
-    image: raene/stocktrade
+    image: raene/stocktradedev
     env_file:
       - .env.dev
+    command: npm run start-dev
     volumes:
       - .:/usr/src/app
     ports:
