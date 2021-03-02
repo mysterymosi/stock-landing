@@ -9,7 +9,7 @@ exports.signup = async function (req, res) {
         where: {
             [models.Sequelize.Op.or]: [
                 { email: email },
-                { phoneNumber: phoneNumber }
+                { mobileNumber: mobileNumber }
             ]
         }
     });
