@@ -82,7 +82,6 @@ paths:
                   properties:
                     message:
                       type: string
-                      default: user is already registered
                     status:
                       type: boolean
                       default: false
