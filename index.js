@@ -4,8 +4,7 @@ const envVar = process.env.NODE_ENV;
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const user = require("./routes/user");
-const handleErrors = require('./middlewares/handleErrors');
-const db = require('./database/models/index');
+const {handleErrors} = require('./middlewares/handleErrors');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggeruser = YAML.load('./docs/swaggeruser.YAML');
@@ -17,7 +16,6 @@ if (envVar !== "production" || envVar !== "test") {
   app.use(logger("dev"));
 }
 
-db.sequelize.sync().then()
 app.use("/api/user", user);
 app.use('/user-api-docs', swaggerUi.serve, swaggerUi.setup(swaggeruser));
 

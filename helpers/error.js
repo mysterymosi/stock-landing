@@ -2,7 +2,7 @@ class GeneralError extends Error {
     constructor(message,data) {
       super();
       this.message = message;
-      this.status = data;
+      this.data = data;
     }
   
     getCode() {
@@ -12,6 +12,8 @@ class GeneralError extends Error {
         return 404;
       } if (this instanceof Forbidden) {
         return 403;
+      } if (this instanceof Unauthorized) {
+        return 401;
       }
       return 500;
     }
@@ -20,10 +22,12 @@ class GeneralError extends Error {
   class BadRequest extends GeneralError { }
   class NotFound extends GeneralError { }
   class Forbidden extends GeneralError { }
+  class Unauthorized extends GeneralError {}
   
   module.exports = {
     GeneralError,
     BadRequest,
     NotFound,
-    Forbidden
+    Forbidden,
+    Unauthorized
   };
