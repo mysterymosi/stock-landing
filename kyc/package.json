@@ -1,0 +1,41 @@
+{
+  "name": "kyc",
+  "version": "1.0.0",
+  "description": "KYC service to identify customers for Stocktrade",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "npm run tests",
+    "start-dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raene/stocktrade.git"
+  },
+  "author": "Abdulrahman Salau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raene/stocktrade/issues"
+  },
+  "homepage": "https://github.com/Raene/stocktrade#readme",
+  "dependencies": {
+    "busboy": "^0.3.1",
+    "express": "^4.17.1",
+    "express-joi-validation": "^5.0.0",
+    "jest": "^27.0.1",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2",
+    "swagger-ui-express": "^4.1.6",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.2.0"
+  }
+}

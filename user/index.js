@@ -10,8 +10,7 @@ const YAML = require('yamljs');
 const swaggeruser = YAML.load('./docs/swaggeruser.YAML');
 
 app.disable("x-powered-by");
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 if (envVar !== "production" || envVar !== "test") {
   app.use(logger("dev"));
 }
