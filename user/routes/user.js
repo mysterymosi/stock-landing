@@ -1,35 +1,34 @@
 const express = require('express');
 const router = express.Router();
 
-const {signup, kycController, login, get2FA, updatePassword, resetPassword, validate2FAtoken} = require(`../controllers/account`);
+const { signup, kycController, login, get2FA, updatePassword, resetPassword, validate2FAtoken } = require(`../controllers/account`);
 const { catchErrors } = require(`../helpers`);
-const { Authenticate } = require('../middlewares/auth');
+const { Authenticate, check2fa } = require('../middlewares/auth');
+const validator = require('express-joi-validation').createValidator({})
+const { loginSchema, registerSchema,resetPasswordSchema } = require(`../schemas`)
 
 router.post(
     `/signup`,
+    validator.body(registerSchema),
     catchErrors(signup)
 )
 
-router.post(`/login`,catchErrors(login))
-
-router.route(`/verify`)
-      .get(catchErrors(get2FA))
-
-router
-    .route(`/kyc`)
-    .get(catchErrors(kycController))
+router.post(`/login`,
+    validator.body(loginSchema),
+    check2fa,
+    catchErrors(login))
 
 router
     .route(`/password-update`)
-    .post(Authenticate,updatePassword)
+    .post(Authenticate, catchErrors(updatePassword))
 
 router
     .route(`/password-reset`)
-    .post(resetPassword)
+    .post(validator.body(resetPasswordSchema),catchErrors(resetPassword))
 
 router
-    .route(`two-fa`)
-    .post(validate2FAtoken)
-    .get(get2FA)
+    .route(`/two-fa`)
+    .post(Authenticate,catchErrors(validate2FAtoken))
+    .get(Authenticate,catchErrors(get2FA))
 
-module.exports = router; 
+module.exports = router;
