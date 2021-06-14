@@ -1,5 +1,6 @@
-const models = require(`../database/models/index`);
+'use strict';
 const jwt = require('jsonwebtoken');
+const {client} = require(`../redisDb`);
 const { Unauthorized, BadRequest } = require('../helpers/error');
 
 const Authenticate = async(req,res,next)=>{
@@ -12,23 +13,26 @@ const Authenticate = async(req,res,next)=>{
                 throw new Unauthorized(`Unauthorized bad token`, {});
             } else {
                 req.decoded = decoded;
-                const user = await models.user.findOne({
-                  where : {
-                    uid: decoded.uid
-                  }
-                });
-                console.log(user)
-                req.user = user
-                if(!user){
-                    throw new BadRequest(`User does not exist`, req.body);
-                }
                 console.log(decoded);
                 next();
             }
         })
     }
 }
+
+/*
+? call this after authorization middleware as it requires the decoded uid from jwt token
+*/
+const check2fa = async(req,res,next)=>{
+    const result = await client.hgetAsync(req.decoded.uid, 'twoFa');
+    if(!result){
+        let err =  new Unauthorized(`Unauthorzed no 2factor verification`, {});
+        return next(err);
+      }
+    next()
+}
   
   module.exports = {
-    Authenticate
+    Authenticate,
+    check2fa
   };

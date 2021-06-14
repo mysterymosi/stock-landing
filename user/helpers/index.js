@@ -12,5 +12,11 @@ module.exports = {
     return function (req, res, next) {
       return fn(req, res, next).catch(next);
     };
+  },
+  setUnixTimeDays(days) {
+    const d = new Date();
+  
+    const unixTime = new Date().setTime((d.getTime() / 1000) + (86400 * days))
+    return unixTime;
   }
 };
