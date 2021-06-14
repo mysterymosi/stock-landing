@@ -1,35 +1,25 @@
-FROM node:lts-alpine@sha256:76badf0d0284ad838536d49d8a804988b4985fc6bc7242dfff4f8216c851438b as development
-
+FROM node:14.16.0-alpine3.13@sha256:1a2edd86b2179d1c26b419f41ae51e9cb734ddeb279e80d03cd8b2c6bdf1e1f9 as base
 RUN apk add dumb-init
-
-USER node
-
-ENV NODE_ENV development
-
 WORKDIR /usr/src/app
+COPY package*.json ./
 
-COPY --chown=node:node package*.json ./
-
+ENV PORT=3000
+FROM base as dependencies
+# install ALL node_modules, including 'devDependencies'
 RUN npm install
 
-COPY --chown=node:node . .
+FROM dependencies as development
+COPY . .
+CMD ["dumb-init", "npm", "run dev"]
 
-CMD ["dumb-init", "node", "index.js"]
+FROM dependencies as test
+COPY . .
+CMD [ "npm", "run", "test" ]
 
-FROM node:lts-alpine@sha256:76badf0d0284ad838536d49d8a804988b4985fc6bc7242dfff4f8216c851438b as production
-
-RUN apk add dumb-init
-
-USER node
-
-ENV NODE_ENV production
-
-WORKDIR /usr/src/app
-
-COPY --chown=node:node package*.json ./
-
+FROM base AS production
+# copy production node_modules
 RUN npm ci --only=production
-
-COPY --chown=node:node . .
-
+# copy app sources
+EXPOSE 3000
+COPY . .
 CMD ["dumb-init", "node", "index.js"]
