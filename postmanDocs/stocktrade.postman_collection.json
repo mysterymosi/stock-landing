@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "375ba1f1-37a5-40ae-98f5-35d4b8be50eb",
+		"name": "stocktrade",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/user/api/user/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"user",
+								"api",
+								"user",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get2FA",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"verificationMethod\": \"sms\",\n    \"mobileNumber\":\"+2348169449100\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/user/api/user/two-fa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"user",
+								"api",
+								"user",
+								"two-fa"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get2FA",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"verificationMethod\": \"sms\",\n    \"mobileNumber\":\"+2348169449100\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/user/api/user/two-fa",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"user",
+										"api",
+										"user",
+										"two-fa"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.13.12"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Jun 2021 13:59:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "207"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"cf-O8XRzgjtn21t1PaySgJIgE94bYk\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"pending\",\n    \"status\": true,\n    \"data\": {\n        \"lookup\": {\n            \"carrier\": {\n                \"mobile_country_code\": \"621\",\n                \"type\": \"mobile\",\n                \"error_code\": null,\n                \"mobile_network_code\": \"30\",\n                \"name\": \"MTN\"\n            }\n        },\n        \"to\": \"+2348169449100\",\n        \"channel\": \"sms\"\n    }\n}"
+						},
+						{
+							"name": "get2FA",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"verificationMethod\": \"sms\",\n    \"mobileNumber\":\"+2348169449100\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/user/api/user/two-fa",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"user",
+										"api",
+										"user",
+										"two-fa"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.13.12"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Jun 2021 14:33:36 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "207"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"cf-O8XRzgjtn21t1PaySgJIgE94bYk\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"pending\",\n    \"status\": true,\n    \"data\": {\n        \"lookup\": {\n            \"carrier\": {\n                \"mobile_country_code\": \"621\",\n                \"type\": \"mobile\",\n                \"error_code\": null,\n                \"mobile_network_code\": \"30\",\n                \"name\": \"MTN\"\n            }\n        },\n        \"to\": \"+2348169449100\",\n        \"channel\": \"sms\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "validate2FA",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"verificationCode\":\"526787\",\n    \"mobileNumber\":\"+2348169449100\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/user/api/user/two-fa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"user",
+								"api",
+								"user",
+								"two-fa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resetPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\":\"\",\n    \"repeat_password\":\"\",\n    \"verificationCode\":\"\",\n    \"mobileNumber\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/user/api/user/password-reset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"user",
+								"api",
+								"user",
+								"password-reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\":\"\",\n    \"password\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/user/api/user/password-update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"user",
+								"api",
+								"user",
+								"password-update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
