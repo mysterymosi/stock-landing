@@ -6,22 +6,72 @@ services:
     restart: always
     volumes:
       - ./db:/var/lib/postgresql/data
+    networks: 
+      - stocktrade-network
     env_file:
       - .env.dev
     ports: 
       - "5400:5432"
 
-  backend:
-    container_name: stocktrade
-    image: raene/stocktradedev
+  redis_db:
+    container_name: redis
+    build: 
+      context: ./redis
+    restart: always
+    networks:
+      - stocktrade-network
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - redisdata:/data
+    ports: 
+      - "6379:6379"
+
+  user_service:
+    container_name: user
+    build: 
+      context: ./user 
     env_file:
       - .env.dev
-    command: npm run start-dev
+    networks: 
+      - stocktrade-network
+    command: npm run dev
     volumes:
-      - .:/usr/src/app
-    ports:
-      - "3000:3000"
+      - ./user:/usr/src/app
     depends_on:
       - db
     restart: always
+
+  kyc_service:
+    container_name: kyc
+    build: 
+      context: ./kyc
+    env_file:
+      - .env.dev
+    networks: 
+      - stocktrade-network
+    command: npm run dev
+    volumes:
+      - ./kyc:/usr/src/app
+    depends_on:
+      - db
+    restart: always
+
+  proxy:
+    container_name: proxy_nginx
+    build: 
+      context: ./proxy
+    volumes:
+      - ./proxy:/usr/src/app
+    ports:
+      - "80:80"
+    networks:
+      - stocktrade-network
+    depends_on: 
+      - user_service
+
+networks:
+  stocktrade-network:
+
+volumes:
+  redisdata:
   
