@@ -9,7 +9,7 @@ module.exports = {
     "logging": console.log,
     "dialect": "postgres"
   },
-  "test": {
+  "test": { 
     "username": process.env.POSTGRES_USER,
     "password": process.env.POSTGRES_PASSWORD,
     "database": process.env.POSTGRES_DB,

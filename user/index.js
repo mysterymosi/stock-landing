@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const envVar = process.env.NODE_ENV;
 const logger = require("morgan");
-const bodyParser = require("body-parser");
 const user = require("./routes/user");
 const {handleErrors} = require('./middlewares/handleErrors');
 const swaggerUi = require('swagger-ui-express');
@@ -27,7 +26,7 @@ function logErrors (err, req, res, next) {
 app.use(logErrors);
 app.use(handleErrors);
 app.listen(process.env.PORT, () =>
-  console.log(`Example app listening on port ${process.env.PORT}!`)
+  console.log(`User Service listening on port ${process.env.PORT}!`)
 );
 
 module.exports = app;

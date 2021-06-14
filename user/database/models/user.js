@@ -23,13 +23,49 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: false,
       unique: true
     },
-    email: DataTypes.STRING,
-    mobileNumber: DataTypes.STRING,
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    middleName: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    dob: DataTypes.DATEONLY,
+    email: {
+      type:DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        isEmail: true
+      }
+    },
+    mobileNumber: {
+      type:DataTypes.STRING,
+      allowNull: false
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      validate: {
+        is: ["^[a-z]+$",'i'],
+        len: [2,40]
+      },
+      allowNull: false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      validate: {
+        is: ["^[a-z]+$",'i'],
+        len: [2,40]
+      },
+      allowNull: false
+    },
+    middleName: {
+      type: DataTypes.STRING,
+      validate: {
+        is: ["^[a-z]+$",'i'],
+        len: [2,40]
+      },
+      defaultValue: ""
+    },
+    gender: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    dob: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     password:{
       type:DataTypes.STRING,
       allowNull: false,
