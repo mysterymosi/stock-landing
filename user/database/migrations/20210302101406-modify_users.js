@@ -36,11 +36,11 @@ module.exports = {
       'middleName',
       {
         type: Sequelize.STRING,
-        allowNull: false,
         validate: {
           is: ["^[a-z]+$",'i'],
           len: [2,40]
-        }
+        },
+        defaultValue: ""
       },
     )
 
