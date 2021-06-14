@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "nodemon index.js"
+    "db-migrate": "./node_modules/.bin/sequelize db:migrate",
+    "migrate:reset": "./node_modules/.bin/sequelize db:migrate:undo:all && npm run db-migrate",
+    "dev": "nodemon index.js"
   },
   "author": "Abdulrahman Salau",
   "license": "ISC",
   "dependencies": {
+    "@joi/date": "^2.1.0",
     "bcrypt": "^5.0.1",
+    "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -21,9 +25,11 @@
     "morgan": "^1.10.0",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
+    "redis": "^3.1.2",
     "sequelize": "^6.5.0",
     "swagger-ui-express": "^4.1.6",
     "twilio": "^3.57.0",
+    "uuid": "^8.3.2",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {

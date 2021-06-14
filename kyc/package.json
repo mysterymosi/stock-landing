@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "npm run tests",
-    "start-dev": "nodemon index.js"
+    "db-migrate": "./node_modules/.bin/sequelize db:migrate",
+    "migrate:reset": "./node_modules/.bin/sequelize db:migrate:undo:all && npm run db-migrate",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
