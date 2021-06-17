@@ -15,12 +15,11 @@ router.post(
 
 router.post(`/login`,
     validator.body(loginSchema),
-    check2fa,
     catchErrors(login))
 
 router
     .route(`/password-update`)
-    .post(Authenticate, catchErrors(updatePassword))
+    .post(catchErrors(Authenticate), catchErrors(updatePassword))
 
 router
     .route(`/password-reset`)
@@ -28,7 +27,7 @@ router
 
 router
     .route(`/two-fa`)
-    .post(Authenticate,catchErrors(validate2FAtoken))
-    .get(Authenticate,catchErrors(get2FA))
+    .post(catchErrors(Authenticate),catchErrors(validate2FAtoken))
+    .get(catchErrors(Authenticate),catchErrors(get2FA))
 
 module.exports = router;
