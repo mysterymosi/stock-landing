@@ -24,37 +24,37 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     email: {
-      type:DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
-      validate:{
+      validate: {
         isEmail: true
       }
     },
     mobileNumber: {
-      type:DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     firstName: {
       type: DataTypes.STRING,
       validate: {
-        is: ["^[a-z]+$",'i'],
-        len: [2,40]
+        is: ["^[a-z]+$", 'i'],
+        len: [2, 40]
       },
       allowNull: false
     },
     lastName: {
       type: DataTypes.STRING,
       validate: {
-        is: ["^[a-z]+$",'i'],
-        len: [2,40]
+        is: ["^[a-z]+$", 'i'],
+        len: [2, 40]
       },
       allowNull: false
     },
     middleName: {
       type: DataTypes.STRING,
       validate: {
-        is: ["^[a-z]+$",'i'],
-        len: [2,40]
+        is: ["^[a-z]+$", 'i'],
+        len: [2, 40]
       },
       defaultValue: ""
     },
@@ -66,13 +66,23 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    password:{
-      type:DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
       allowNull: false,
       set: function (val) {
         let hash = bcrypt.hashSync(val, 10);
         this.setDataValue("password", hash);
       }
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
     }
 
   }, {
