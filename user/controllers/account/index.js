@@ -101,9 +101,9 @@ exports.login = async function (req, res) {
         expiresIn: "30d"
     });
     const data = {
-        firstName,
-        mobileNumber,
-        email,
+        firstName:user.dataValues.firstName,
+        mobileNumber:user.dataValues.mobileNumber,
+        email:user.dataValues.email,
         token: token
     };
 
