@@ -41,6 +41,21 @@ services:
       - db
     restart: always
 
+  wallet_service:
+    container_name: wallet
+    build: 
+      context: ./wallet
+    env_file:
+      - .env.dev
+    networks: 
+      - stocktrade-network
+    command: npm run dev
+    volumes:
+      - ./wallet:/usr/src/app
+    depends_on:
+      - db
+    restart: always
+
   kyc_service:
     container_name: kyc
     build: 
