@@ -1,6 +1,6 @@
 const {sendJSONResponse} = require('../../helpers');
 const {BadRequest, Forbidden} = require('../../helpers/error');
-const models = require('../database/models/index')
+const models = require('../../database/models')
 const axios = require('axios');
 
 
@@ -22,20 +22,20 @@ exports.transactionInit = async function (req,res) {
           metadata:{
               reason,
               uid 
-          }
-        },
-        currency:currency, 
+          },
         channels:["card"],
+        },
         headers: {
             Authorization: `Bearer ${psSecretKey}`,
             'Content-Type': 'application/json'
         }
     }
     const response = await axios(params)
+
     //save access code and transaction ref to transaction table with user id
     await models.transaction.create({
         userId: uid,
-        ref: response.data.reference
+        ref: response.data.data.reference
     })
     return sendJSONResponse(res,200,{
         ...response.data
@@ -43,13 +43,43 @@ exports.transactionInit = async function (req,res) {
 }
 
 exports.psWebhook = async function (req,res) {
-    let events = req.body
-    console.log(events)
+    let {event,data} = req.body
+    let userId = data.metadata.uid;
     /*
         on sucessful event
         check the metadata for the reason the transaction was made
         if its a fund reason, update the wallet associated with the userId
         if its a buy reason, add the stocks to the users stocks
         update the transaction to successful
-    */
+    */ 
+   switch (event) {
+       case 'charge.success':
+           let updatedAt = createDate();
+           await models.transaction.update({
+               status: "successful",
+               updatedAt
+           },{
+               where: {
+                   ref: data.reference
+               }
+           });
+           await models.sequelize.query(`UPDATE wallets SET balance = balance + '${data.amount}' WHERE ("userId" = '${userId}')`, {
+            model: models.wallet,
+            mapToModel: true // pass true here if you have any mapped fields
+        })
+           break;
+       case 'customeridentification.success':
+
+            break;
+       default:
+           break;
+   }
+   
+}
+
+
+function createDate() {
+    let date = new Date();
+
+    return date.toISOString().slice(0,19).replace('T',' ');
 }

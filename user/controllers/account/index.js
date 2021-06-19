@@ -34,9 +34,11 @@ exports.signup = async function (req, res) {
             password
         });
 
-        let uid = uuidv4();
+        
 
-        await models.sequelize.query(`INSERT INTO points ("uid","userId","createdAt","updatedAt")VALUES ('${uid}','${user.dataValues.uid}','${createDate()}','${createDate()}')`, { transaction: t })
+        await models.sequelize.query(`INSERT INTO points ("uid","userId","createdAt","updatedAt")VALUES ('${uuidv4()}','${user.dataValues.uid}','${createDate()}','${createDate()}')`, { transaction: t })
+
+        await models.sequelize.query(`INSERT INTO wallets ("uid","userId","createdAt","updatedAt")VALUES ('${uuidv4()}','${user.dataValues.uid}','${createDate()}','${createDate()}')`, { transaction: t })
 
         return user;
     })
