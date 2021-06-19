@@ -272,6 +272,158 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"bob.salau@gmail.com\",\n    \"password\":\"boobs\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/user/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"user",
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "wallet",
+			"item": [
+				{
+					"name": "transaction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"item": [
+				{
+					"name": "initialize transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJBYmR1bHJhaG1hbiIsImVtYWlsIjoiYm9iLnNhbGF1QGdtYWlsLmNvbSIsIm1vYmlsZU51bWJlciI6IjA5Nzc4OTA3NjU0IiwidWlkIjoiN2RkMTZhMDgtNjBhNi00NWVkLThlZmUtYzE3NTU0NmM4MmJlIiwiaWF0IjoxNjIzODgwNTI3LCJleHAiOjE2MjY0NzI1Mjd9.W8-gorIWFWtTxV72KH6IXEPYBUvG98l-YTSPuYbQx60",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 10,\n    \"currency\":\"usd\",\n    \"reason\":\"fund\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/wallet/api/paystack/create-charge",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"wallet",
+								"api",
+								"paystack",
+								"create-charge"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "initialize transaction",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\": 10,\n    \"currency\":\"usd\",\n    \"reason\":\"fund\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/wallet/api/paystack/create-charge",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"wallet",
+										"api",
+										"paystack",
+										"create-charge"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.13.12"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 17 Jun 2021 00:42:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "187"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bb-xgff7zbeb7HBuMyXaIVA900MwOo\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Authorization URL created\",\n    \"data\": {\n        \"authorization_url\": \"https://checkout.paystack.com/0hd56hvm802fe2r\",\n        \"access_code\": \"0hd56hvm802fe2r\",\n        \"reference\": \"s6zmf2kzia\"\n    }\n}"
+						}
+					]
 				}
 			]
 		}
