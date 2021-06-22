@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const envVar = process.env.NODE_ENV;
+const cors = require('cors');
 const logger = require("morgan");
 const paystack = require("./routes/paystack");
 const {handleErrors} = require('./middlewares/handleErrors');

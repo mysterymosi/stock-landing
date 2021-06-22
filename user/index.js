@@ -3,6 +3,7 @@ const app = express();
 const envVar = process.env.NODE_ENV;
 const logger = require("morgan");
 const user = require("./routes/user");
+const cors = require('cors');
 const {handleErrors} = require('./middlewares/handleErrors');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
