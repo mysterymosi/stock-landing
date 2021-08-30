@@ -3477,7 +3477,7 @@ td, th {
 
   .email-input {
     border-radius: 10px;
-    height: 63px;
+    height: 63px !important;
   }
 
   .email-input:focus {
@@ -3566,6 +3566,10 @@ td, th {
 
 .auth {
   display: none !important;
+}
+
+.form-group__option {
+  color: #495057;
 }
 
 @media (min-width: 500px) {
